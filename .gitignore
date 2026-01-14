@@ -33,6 +33,20 @@ testem.log
 /typings
 __screenshots__/
 
+
+# Python Bytecode
+__pycache__/
+*.pyc
+
+# Django
+*.sqlite3
+.env
+
+# Environments
+.venv/
+venv/
+env/
+
 # System files
 .DS_Store
 Thumbs.db

@@ -6,6 +6,4 @@ import { Component } from "@angular/core"
   templateUrl: './auth-banner.html',
   styles: ``,
 })
-export class AuthBanner {
-
-}
+export class AuthBanner {}

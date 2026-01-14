@@ -13,37 +13,63 @@
                 <p class="text-sm text-secondary-text mt-2">Enter your details below to create your account</p>
             </div>
 
-            <form action="#" method="POST" class="flex flex-col gap-5">
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
 
                 <div class="flex flex-col gap-2">
-                    <label for="name" class="text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" id="name" name="name" autocomplete="name" placeholder="John Doe"
-                        class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition-all">
+                    <div class="flex justify-between">
+                        <label for="name" class="text-sm font-medium">First name</label>
+                        @if (signupForm.get('first_name')?.invalid && signupForm.get('first_name')?.touched) {
+                        <span class="text-xs text-error font-medium">First name is required</span>}
+                    </div>
+                    <input type="text" id="firstName" formControlName="first_name" placeholder="John"
+                        class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition"
+                        [class.border-error]="signupForm.get('first_name')?.invalid && signupForm.get('first_name')?.touched">
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <label for="email" class="text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" autocomplete="email" placeholder="me@example.com"
-                        class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition-all">
+                    <div class="flex justify-between">
+                        <label for="name" class="text-sm font-medium">Last name</label>
+                        @if (signupForm.get('last_name')?.invalid && signupForm.get('last_name')?.touched) {
+                        <span class="text-xs text-error font-medium">Last name is required</span>}
+                    </div>
+                    <input type="text" id="lastName" formControlName="last_name" placeholder="Doe"
+                        class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition"
+                        [class.border-error]="signupForm.get('last_name')?.invalid && signupForm.get('last_name')?.touched">
+                </div>
+
+                <div class="relative flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <label for="email" class="text-sm font-medium">Email</label>
+                        @if (signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched) {
+                        <span class="text-xs text-error font-medium">Email is required</span> }
+                        @if (signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched) {
+                        <span class="text-xs text-error font-medium">Please enter a valid email</span> }
+                    </div>
+
+                    <input type="email" id="email" formControlName="email" placeholder="me@example.com"
+                        class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition"
+                        [class.border-error]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
                 </div>
 
                 <div class="flex flex-col gap-2">
-                    <label for="password" class="text-sm font-medium text-gray-700">Password</label>
-                    <input type="password" id="password" name="password" autocomplete="new-password" placeholder=""
-                        class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition-all">
-                    <p class="text-xs text-secondary-text">Must be at least 8 characters.</p>
+                    <div class="flex justify-between">
+                        <label for="password" class="text-sm font-medium">Password</label>
+                        @if (signupForm.get('password')?.invalid && signupForm.get('password')?.touched) {
+                        <span class="text-xs text-error font-medium">Password is required</span> }
+                    </div>
+
+                    <input type="password" id="password" formControlName="password" placeholder=""
+                        class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition"
+                        [class.border-error]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+
+                    <span class="text-xs"
+                        [class.text-error]="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched"
+                        [class.text-secondary-text]="!signupForm.get('password')?.hasError('minlength')">
+                        Must be at least 8 characters
+                    </span>
                 </div>
 
-                <div class="flex items-center gap-2 mt-1 mb-2">
-                    <input id="terms" name="terms" type="checkbox"
-                        class="w-4 h-4 text-black border-border rounded focus:ring-black">
-                    <label for="terms" class="text-sm text-secondary-text leading-tight">
-                        I agree to the <a href="#" class="underline hover:text-black">Terms of Service</a> and <a
-                            href="#" class="underline hover:text-black">Privacy Policy</a>
-                    </label>
-                </div>
-
-                <div class="mt-2 flex flex-col gap-3">
+                <div class="flex flex-col gap-3 mt-2 relative pb-8">
                     <button type="submit" class="w-full bg-black text-white py-2 rounded-md font-medium cursor-pointer">
                         Create account
                     </button>
@@ -53,12 +79,17 @@
                         Sign up with Google
                     </button>
 
-                    <p class="text-center text-sm text-secondary-text mt-4">
+                    <p class="text-center text-sm text-secondary-text mt-5">
                         Already have an account?
-                        <a href="/signin" class="underline underline-offset-2 cursor-pointer font-medium text-black">
+                        <a routerLink="/signin"
+                            class="underline underline-offset-2 cursor-pointer font-medium text-black">
                             Login
                         </a>
                     </p>
+                    @if(errorMessage) {
+                    <span class="w-full absolute bottom-0 text-center text-error font-medium text-sm">{{ errorMessage
+                        }}</span>
+                    }
                 </div>
             </form>
         </div>

@@ -3,21 +3,21 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { AuthBanner } from "@auth/components/auth-banner/auth-banner"
 
 describe('AuthBanner', () => {
-  let component: AuthBanner;
-  let fixture: ComponentFixture<AuthBanner>;
+  let component: AuthBanner
+  let fixture: ComponentFixture<AuthBanner>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AuthBanner]
     })
-      .compileComponents();
+      .compileComponents()
 
-    fixture = TestBed.createComponent(AuthBanner);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture = TestBed.createComponent(AuthBanner)
+    component = fixture.componentInstance
+    await fixture.whenStable()
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

@@ -10,6 +10,7 @@
       "@dashboard/*": ["src/app/dashboard/*"],
       "@landing/*": ["src/app/landing/*"],
       "@shared/*": ["src/app/shared/*"],
+      "@services/*": ["src/app/services/*"]
     },
     "strict": true,
     "noImplicitOverride": true,
