@@ -1,7 +1,6 @@
 <main class="w-full min-h-svh flex items-center justify-center p-4">
 
     <div class="w-full max-w-4xl flex bg-white rounded-lg shadow-lg overflow-hidden border border-border">
-
         <div class="hidden md:block w-1/2">
             <app-auth-banner></app-auth-banner>
         </div>
@@ -10,7 +9,7 @@
 
             <div class="mb-8">
                 <h1 class="text-2xl font-bold">Create an account</h1>
-                <p class="text-sm text-secondary-text mt-2">Enter your details below to create your account</p>
+                <p class="text-sm text-foreground-muted mt-2">Enter your details below to create your account</p>
             </div>
 
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
@@ -58,13 +57,13 @@
                         <span class="text-xs text-error font-medium">Password is required</span> }
                     </div>
 
-                    <input type="password" id="password" formControlName="password" placeholder=""
+                    <input type="password" id="password" formControlName="password" placeholder="password"
                         class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition"
                         [class.border-error]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
 
                     <span class="text-xs"
                         [class.text-error]="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched"
-                        [class.text-secondary-text]="!signupForm.get('password')?.hasError('minlength')">
+                        [class.text-foreground-muted]="!signupForm.get('password')?.hasError('minlength')">
                         Must be at least 8 characters
                     </span>
                 </div>
@@ -75,19 +74,19 @@
                     </button>
 
                     <button type="button"
-                        class="w-full border border-border text-black py-2 rounded-md font-medium cursor-pointer">
+                        class="w-full border border-border text-foreground py-2 rounded-md font-medium cursor-pointer">
                         Sign up with Google
                     </button>
 
-                    <p class="text-center text-sm text-secondary-text mt-5">
+                    <p class="text-center text-sm text-foreground-muted mt-5">
                         Already have an account?
                         <a routerLink="/signin"
-                            class="underline underline-offset-2 cursor-pointer font-medium text-black">
+                            class="underline underline-offset-2 cursor-pointer font-medium text-foreground">
                             Login
                         </a>
                     </p>
                     @if(errorMessage) {
-                    <span class="w-full absolute bottom-0 text-center text-error font-medium text-sm">{{ errorMessage
+                    <span class="w-full absolute bottom-0 text-center text-error font-medium text-xs">{{ errorMessage
                         }}</span>
                     }
                 </div>

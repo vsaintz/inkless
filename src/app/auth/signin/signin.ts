@@ -1,9 +1,9 @@
 import { Component } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import { AuthService } from "@services/auth"
+import { AuthService } from "@app/services/auth-service"
 import { Router, RouterLink } from "@angular/router"
-import { AuthBanner } from "@auth/components/auth-banner/auth-banner"
+import { AuthBanner } from "@auth/components/auth-banner"
 
 @Component({
   selector: 'app-signin',
