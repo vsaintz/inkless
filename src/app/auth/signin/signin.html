@@ -1,11 +1,10 @@
 <main class="w-full min-h-svh flex items-center justify-center p-4">
-
     <div class="w-full max-w-4xl flex bg-white rounded-lg shadow-lg overflow-hidden border border-border">
         <div class="flex flex-col justify-center flex-1 p-8 md:p-12 w-full">
 
             <div class="mb-8">
                 <h1 class="text-2xl font-bold">Log into your account</h1>
-                <p class="text-sm text-secondary-text mt-2">Enter your email below to login to your account</p>
+                <p class="text-sm text-foreground-muted mt-2">Enter your email below to login to your account</p>
             </div>
 
             <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
@@ -17,8 +16,7 @@
                         <span class="text-xs text-error font-medium">Email is required</span>
                         } @else if (signinForm.get('email')?.hasError('email')) {
                         <span class="text-xs text-error font-medium">Invalid email format</span>
-                        }
-                        }
+                        } }
                     </div>
                     <input type="email" id="email" formControlName="email" autocomplete="email"
                         placeholder="me@example.com"
@@ -29,17 +27,14 @@
                 <div class="flex flex-col gap-2">
                     <div class="flex items-center justify-between">
                         <label for="password" class="text-sm font-medium ">Password</label>
-
                         @if (signinForm.get('password')?.invalid && signinForm.get('password')?.touched) {
                         <span class="text-xs text-error font-medium">Password is required</span>
                         } @else {
-                        <a routerLink="/landing"
-                            class="text-sm text-secondary-text hover:text-black hover:underline">Forgot your
-                            password?</a>
-                        }
+                        <a routerLink="/landing" class="text-sm text-foreground-muted hover:underline">Forgot your
+                            password?</a> }
                     </div>
                     <input type="password" id="password" formControlName="password" autocomplete="current-password"
-                        placeholder=""
+                        placeholder="password"
                         class="w-full py-2 px-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-border focus:border-transparent transition"
                         [class.border-error]="signinForm.get('password')?.invalid && signinForm.get('password')?.touched">
                 </div>
@@ -50,19 +45,19 @@
                     </button>
 
                     <button type="button"
-                        class="w-full border border-border text-black py-2 cursor-pointer rounded-md font-medium">
+                        class="w-full border border-border text-foreground py-2 cursor-pointer rounded-md font-medium">
                         Login with Google
                     </button>
 
-                    <p class="text-center text-sm text-secondary-text mt-4">
+                    <p class="text-center text-sm text-foreground-muted mt-4">
                         Don't have an account?
                         <a routerLink="/signup"
-                            class="underline underline-offset-2 cursor-pointer font-medium text-black">
+                            class="underline underline-offset-2 cursor-pointer font-medium text-foreground">
                             Sign up
                         </a>
                     </p>
                     @if(errorMessage) {
-                    <span class="absolute bottom-0 w-full text-center text-sm text-error font-medium">{{ errorMessage
+                    <span class="absolute bottom-0 w-full text-center text-xs text-error font-medium">{{ errorMessage
                         }}</span>
                     }
                 </div>
