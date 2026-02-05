@@ -2,7 +2,7 @@ import { Component } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms"
 import { Router, RouterLink } from "@angular/router"
-import { AuthService } from "@app/services/auth-service"
+import { AuthService } from "@app/services/auth.service"
 import { AuthBanner } from "@auth/components/auth-banner"
 
 @Component({
@@ -38,42 +38,31 @@ export class Signup {
         email: this.signupForm.value.email,
         password: this.signupForm.value.password,
       }
+
       this.authService.signup(payload).subscribe({
-        next: (res) => {
-          console.log('Signup success: ', res)
+        next: ({ data, error }) => {
+          if (error) {
+            this.errorMessage = error.message
+            return
+          }
+          console.log('Signup success: ', data)
           this.router.navigate(['/signin'])
         },
         error: (err) => {
-          console.error('Signup error: ', err);
-          if (err.status === 400 && err.error) {
-            const errorData = err.error;
-
-            if (errorData.email) {
-              this.errorMessage = 'This email is already registered.';
-            }
-            else if (errorData.password) {
-              const passErr = Array.isArray(errorData.password) ? errorData.password[0] : errorData.password;
-              if (passErr.includes('too similar')) {
-                this.errorMessage = 'Password is too similar to your email.';
-              } else if (passErr.includes('too common')) {
-                this.errorMessage = 'This password is too common. Try something unique.';
-              } else {
-                this.errorMessage = passErr;
-              }
-            }
-            else {
-              const firstKey = Object.keys(errorData)[0];
-              this.errorMessage = errorData[firstKey][0] || 'Invalid data provided';
-            }
-          } else {
-            this.errorMessage = 'Something went wrong. Please check your connection.';
-          }
+          this.errorMessage = 'Something went wrong. Please check your connection.'
         }
-
       })
     } else {
       this.signupForm.markAllAsTouched()
       this.errorMessage = 'Please fill in all required fields'
     }
+  }
+
+  loginWithGoogle() {
+    this.authService.signInWithGoogle().subscribe({
+      error: (err) => {
+        this.errorMessage = 'Could not connect to Google'
+      }
+    })
   }
 }

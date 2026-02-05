@@ -1,7 +1,7 @@
 import { Component } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import { AuthService } from "@app/services/auth-service"
+import { AuthService } from "@app/services/auth.service"
 import { Router, RouterLink } from "@angular/router"
 import { AuthBanner } from "@auth/components/auth-banner"
 
@@ -37,22 +37,33 @@ export class Signin {
       }
 
       this.authService.signin(payload).subscribe({
-        next: (res) => {
-          this.router.navigate(['/landing'])
+        next: ({ data, error }) => {
+          if (error) {
+            console.error('Login error: ', error.message)
+            this.errorMessage = error.status === 400 || error.status === 401
+              ? 'Invalid email or password'
+              : error.message
+            return
+          }
+          console.log('Login success:', data)
+          this.router.navigate(['/dashboard'])
         },
         error: (err) => {
-          console.error('Login error: ', err)
-
-          if (err.status === 401 || err.status === 400) {
-            this.errorMessage = 'Invalid email or password'
-          } else {
-            this.errorMessage = 'Unable to connect to the server'
-          }
+          console.error('Connection error: ', err)
+          this.errorMessage = 'Unable to connect to the server'
         }
       })
     } else {
       this.signinForm.markAllAsTouched()
       this.errorMessage = 'Please fill in all required fields'
     }
+  }
+
+  loginWithGoogle() {
+    this.authService.signInWithGoogle().subscribe({
+      error: (err) => {
+        this.errorMessage = 'Could not connect to Google'
+      }
+    })
   }
 }
