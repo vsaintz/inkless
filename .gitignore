@@ -50,3 +50,8 @@ env/
 # System files
 .DS_Store
 Thumbs.db
+
+# Extras
+src/environments/environment.ts
+src/environments/environment.prod.ts
+backend/tests/*

@@ -6,8 +6,10 @@ from .models import User
 class CustomUserAdmin(UserAdmin):
     ordering = ("email",)
     list_display = ("email", "first_name", "last_name", "is_staff", "is_active")
+    readonly_fields = ("id", "last_login", "date_joined")
+
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("id", "email")}),
         ("Personal info", {"fields": ("first_name", "last_name")}),
         (
             "Permissions",
@@ -23,12 +25,13 @@ class CustomUserAdmin(UserAdmin):
         ),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
+
     add_fieldsets = (
         (
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "first_name", "last_name", "password"),
+                "fields": ("email", "first_name", "last_name"),
             },
         ),
     )
