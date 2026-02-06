@@ -9,8 +9,8 @@
       "@app/*": ["src/app/*"],
       "@auth/*": ["src/app/auth/*"],
       "@dashboard/*": ["src/app/dashboard/*"],
-      "@landing/*": ["src/app/landing/*"],
-      "@shared/*": ["src/app/shared/*"],
+      "@guards/*": ["src/app/guards/*"],
+      "@interceptors/*": ["src/app/interceptors/*"],
       "@services/*": ["src/app/services/*"]
     },
     "strict": true,
